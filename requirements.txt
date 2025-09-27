@@ -1,6 +1,9 @@
 streamlit
 google-generativeai
 pandas
+sentence-transformers
+faiss-cpu
+PyPDF2
 
 
 
