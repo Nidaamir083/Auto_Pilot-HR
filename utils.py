@@ -1,4 +1,6 @@
 import streamlit as st
+import re
+from PyPDF2 import PdfReader
 
 def apply_css(theme):
     if theme == "Light":
@@ -13,14 +15,9 @@ def apply_css(theme):
 
     st.markdown(f"""
         <style>
-        /* Hide Streamlit branding */
         #MainMenu {{visibility: hidden;}}
         footer {{visibility: hidden;}}
-
-        /* Page Background */
         .stApp {{background-color: {bg_color};}}
-
-        /* Chat Bubble Styling */
         .chat-container {{max-width: 600px; margin: auto; padding-bottom: 100px;}}
         .message {{
             padding: 10px 15px;
@@ -47,16 +44,12 @@ def apply_css(theme):
             text-align: left;
             color: {bot_text_color};
         }}
-
-        /* Button Styling */
         div.stButton > button {{
             border-radius: 12px;
             background-color: #056162;
             color: white;
             font-weight: bold;
         }}
-
-        /* Sticky Input Bar */
         .sticky-bar {{
             position: fixed; bottom: 0; left: 0; right: 0;
             background: white; padding: 10px;
@@ -67,5 +60,28 @@ def apply_css(theme):
     """, unsafe_allow_html=True)
 
     return title_color, subtitle_color
+
+
+# -------------------- NEW FUNCTION --------------------
+def load_policy_texts(pdf_path, chunk_size=500):
+    """
+    Reads a PDF file, extracts text, splits into clean chunks for RAG.
+    """
+    reader = PdfReader(pdf_path)
+    full_text = ""
+
+    for page in reader.pages:
+        full_text += page.extract_text() + "\n"
+
+    # Clean extra spaces/newlines
+    full_text = re.sub(r"\n+", "\n", full_text).strip()
+
+    # Split into chunks (500 characters each by default)
+    chunks = []
+    for i in range(0, len(full_text), chunk_size):
+        chunks.append(full_text[i:i+chunk_size])
+
+    return chunks
+
 
            
