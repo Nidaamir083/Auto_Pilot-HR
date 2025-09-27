@@ -63,25 +63,15 @@ def apply_css(theme):
 
 
 # -------------------- NEW FUNCTION --------------------
-def load_policy_texts(pdf_path, chunk_size=500):
-    """
-    Reads a PDF file, extracts text, splits into clean chunks for RAG.
-    """
-    reader = PdfReader(pdf_path)
-    full_text = ""
+def load_policy_texts(txt_path, chunk_size=500):
+    with open(txt_path, "r", encoding="utf-8") as f:
+        full_text = f.read()
 
-    for page in reader.pages:
-        full_text += page.extract_text() + "\n"
-
-    # Clean extra spaces/newlines
-    full_text = re.sub(r"\n+", "\n", full_text).strip()
-
-    # Split into chunks (500 characters each by default)
-    chunks = []
-    for i in range(0, len(full_text), chunk_size):
-        chunks.append(full_text[i:i+chunk_size])
-
+    # Split into chunks
+    chunks = [full_text[i:i+chunk_size] for i in range(0, len(full_text), chunk_size)]
     return chunks
+
+   
 
 
            
