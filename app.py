@@ -3,6 +3,8 @@ from database import init_db, get_employees, add_employee, apply_leave, get_leav
 from chatbot import setup_gemini, ask_gemini
 from utils import apply_css, load_policy_texts
 from chatbot import build_vector_store
+pip install PyPDF2
+
 
 # Load policy document
 policy_chunks = load_policy_texts("Sample_HR_Policy.pdf")
