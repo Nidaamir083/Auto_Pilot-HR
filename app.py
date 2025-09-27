@@ -23,7 +23,7 @@ st.markdown(f"<p style='text-align: center; font-size:18px; color:{subtitle_colo
 model = setup_gemini(st.secrets["GOOGLE_API_KEY"])
 
 # ----------------- Tabs -----------------
-tab1, tab2, tab3 = st.tabs(["💬 Chatbot", "👥 Employees", "📝 Leaves"])
+tab1, tab2, tab3, tab4 = st.tabs(["💬 Chatbot", "👥 Employees", "📝 Leaves", " 📄  Loaded HR Policy Preview"])
 
 # 💬 Chatbot
 with tab1:
