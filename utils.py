@@ -1,6 +1,5 @@
 import streamlit as st
 import re
-from PyPDF2 import PdfReader
 
 def apply_css(theme):
     if theme == "Light":
