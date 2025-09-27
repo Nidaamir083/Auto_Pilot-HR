@@ -1,7 +1,12 @@
 import streamlit as st
 from database import init_db, get_employees, add_employee, apply_leave, get_leaves, update_leave
 from chatbot import setup_gemini, ask_gemini
-from utils import apply_css
+from utils import apply_css, load_policy_texts
+from chatbot import build_vector_store
+
+# Load policy document
+policy_chunks = load_policy_texts("Sample_HR_Policy.pdf")
+index, embeddings, policy_texts = build_vector_store(policy_chunks)
 
 # ----------------- Setup -----------------
 init_db()
@@ -31,7 +36,7 @@ with tab1:
         if not user_msg:
             return
         st.session_state.messages.append({"role": "user", "content": user_msg})
-        reply = ask_gemini(model, user_msg)
+        reply = ask_gemini(model, user_msg, index=index, policy_texts=policy_texts)
         st.session_state.messages.append({"role": "assistant", "content": reply})
         st.session_state.chat_input = ""
         st.rerun()
