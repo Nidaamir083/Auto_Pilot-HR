@@ -13,11 +13,24 @@ def apply_css(theme):
 
     st.markdown(f"""
         <style>
+        /* Hide Streamlit branding */
+        #MainMenu {{visibility: hidden;}}
+        footer {{visibility: hidden;}}
+
+        /* Page Background */
         .stApp {{background-color: {bg_color};}}
+
+        /* Chat Bubble Styling */
         .chat-container {{max-width: 600px; margin: auto; padding-bottom: 100px;}}
         .message {{
-            padding: 10px 15px; border-radius: 20px; margin: 10px;
-            display: inline-block; max-width: 80%; word-wrap: break-word; font-size: 15px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin: 10px;
+            display: inline-block;
+            max-width: 80%;
+            word-wrap: break-word;
+            font-size: 15px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
         }}
         .user {{
             background-color: {user_color};
@@ -34,6 +47,16 @@ def apply_css(theme):
             text-align: left;
             color: {bot_text_color};
         }}
+
+        /* Button Styling */
+        div.stButton > button {{
+            border-radius: 12px;
+            background-color: #056162;
+            color: white;
+            font-weight: bold;
+        }}
+
+        /* Sticky Input Bar */
         .sticky-bar {{
             position: fixed; bottom: 0; left: 0; right: 0;
             background: white; padding: 10px;
@@ -44,3 +67,5 @@ def apply_css(theme):
     """, unsafe_allow_html=True)
 
     return title_color, subtitle_color
+
+           
