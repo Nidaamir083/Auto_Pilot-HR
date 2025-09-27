@@ -81,6 +81,13 @@ with tab3:
     leaves = get_leaves()
     st.table(leaves)
 
+# 📄  Loaded HR Policy Preview
+with tab4:
+    st.subheader("📄 Loaded HR Policy Preview")
+    st.text(policy_chunks[0])  # Show first chunk
+
+
+
     leave_id = st.number_input("Leave ID to update", min_value=1, step=1)
     action = st.radio("Action", ["Approved", "Rejected"])
     if st.button("Update Leave"):
